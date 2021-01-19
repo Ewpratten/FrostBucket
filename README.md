@@ -1,4 +1,4 @@
-# FrostBucket
+# FrostBucket ![Build plugin](https://github.com/Ewpratten/FrostBucket/workflows/Build%20plugin/badge.svg)
 
 FrostBucket is a server-side Minecraft plugin that adds a new item, the `Frost Bucket`. This item turns water into ice. The FrostBucket plugin does not have any intentional practical use, but just exists to satisfy a concept brought up on a late-night Discord call a few months ago: *"What if you could put Frost Walker on a bucket?"*
 
