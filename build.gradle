@@ -40,7 +40,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly spigot('1.16.3')
+    compileOnly spigot(project.property("minecraft.version"))
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.+'
     testImplementation "org.mockito:mockito-core:3.+"

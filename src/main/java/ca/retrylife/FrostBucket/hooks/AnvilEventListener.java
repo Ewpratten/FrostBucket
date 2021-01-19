@@ -6,21 +6,23 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
-import ca.retrylife.FrostBucket.items.FrostBucketFactory;
+import ca.retrylife.FrostBucket.items.FrostBucketItemStack;
 
 public class AnvilEventListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void handleAnvilUsage(PrepareAnvilEvent event) {
 
         // Fetch the anvil inventory
         ItemStack[] anvilInventoryContents = event.getInventory().getContents();
         ItemStack primaryAnvilItemSlot = anvilInventoryContents[0];
-        ItemStack secondaryAnvilItemSlot = anvilInventoryContents[0];
+        ItemStack secondaryAnvilItemSlot = anvilInventoryContents[1];
 
         // We only care if we have two items
         if (primaryAnvilItemSlot == null || secondaryAnvilItemSlot == null) {
@@ -36,16 +38,15 @@ public class AnvilEventListener implements Listener {
         if (bucket == null || book == null) {
             return;
         }
-        Bukkit.getLogger().log(Level.FINEST, "FrostBucket: Hijacking currently active anvil session to inject custom item");
+        Bukkit.getLogger().log(Level.FINEST,
+                "FrostBucket: Hijacking currently active anvil session to inject custom item");
 
         // Set the repair cost for this action
         // TODO: Make this a configurable thing
         event.getInventory().setRepairCost(39);
 
         // Create a FrostBucket
-        ItemStack result = FrostBucketFactory.createFrostBucket();
-
-        event.setResult(result);
+        event.setResult(new FrostBucketItemStack());
 
     }
 
@@ -76,8 +77,13 @@ public class AnvilEventListener implements Listener {
      */
     private ItemStack findEnchantedBookOrNull(Enchantment enchantment, ItemStack... itemStacks) {
         for (ItemStack itemStack : itemStacks) {
+
+            // Must be an enchanted book
             if (itemStack.getType().equals(Material.ENCHANTED_BOOK)) {
-                if (itemStack.getItemMeta().hasEnchant(enchantment)) {
+
+                // Get the enchantment storage metadata
+                EnchantmentStorageMeta meta = (EnchantmentStorageMeta) itemStack.getItemMeta();
+                if (meta.hasStoredEnchant(enchantment)) {
                     return itemStack;
                 }
             }

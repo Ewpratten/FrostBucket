@@ -10,11 +10,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
 
 import ca.retrylife.FrostBucket.hooks.AnvilEventListener;
+import ca.retrylife.FrostBucket.hooks.FrostBucketUsageEventListener;
 
 import java.io.File;
 
 @PluginMain
 public class FrostBucketPlugin extends JavaPlugin implements Listener {
+    
 
     public FrostBucketPlugin() {
     }
@@ -33,6 +35,10 @@ public class FrostBucketPlugin extends JavaPlugin implements Listener {
 
         // Anvil events
         getServer().getPluginManager().registerEvents(new AnvilEventListener(), this);
+
+        // World events
+        getServer().getPluginManager().registerEvents(new FrostBucketUsageEventListener(), this);
+
     }
 
     @EventHandler
