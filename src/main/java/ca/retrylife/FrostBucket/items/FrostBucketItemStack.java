@@ -74,7 +74,6 @@ public class FrostBucketItemStack extends ItemStack {
 
         // Direct instance makes this a frost bucket
         if (items instanceof FrostBucketItemStack) {
-            System.out.println("ISINSTANCE");
             return true;
         }
 
@@ -87,7 +86,6 @@ public class FrostBucketItemStack extends ItemStack {
         // NBT makes this a frost bucket
         if (meta.getPersistentDataContainer().getOrDefault(IDENTIFIER_KEY, PersistentDataType.BYTE,
                 (byte) 0) == (byte) 1) {
-            System.out.println("IS_NET");
 
             return true;
         }
@@ -149,8 +147,6 @@ public class FrostBucketItemStack extends ItemStack {
         // Add increment
         bucket.getItemMeta().getPersistentDataContainer().set(DAMAGE_KEY, PersistentDataType.INTEGER,
                 currentDamage + DAMAGE_INCREMENT);
-
-        System.out.println(currentDamage + 1);
 
     }
 

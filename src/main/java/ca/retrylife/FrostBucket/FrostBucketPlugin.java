@@ -2,6 +2,7 @@ package ca.retrylife.FrostBucket;
 
 import kr.entree.spigradle.annotations.PluginMain;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -23,8 +24,6 @@ public class FrostBucketPlugin extends JavaPlugin implements Listener {
 
     public FrostBucketPlugin(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
-
-        // Enchantment.FROST_WALKER;
     }
 
     @Override
@@ -43,7 +42,10 @@ public class FrostBucketPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        getLogger().info("Player joined.");
+        
+        // Get the player
+        Player player = event.getPlayer();
+
     }
 
 }
